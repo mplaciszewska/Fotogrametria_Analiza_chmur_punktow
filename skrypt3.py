@@ -75,7 +75,6 @@ def laz_to_raster(points, cell_size):
 
     return raster, crs, transform
 
-
 cell_size = 1.0  
 
 nmt_points1 = points1[las1.classification == 2]
@@ -94,7 +93,6 @@ nmpt2, _, _ = laz_to_raster(nmpt_points2, cell_size)
 difference_raster = nmpt1 - nmpt2
 
 # save difference raster to geotiff
-
 with rasterio.open(output_difference, 'w', driver='GTiff', count=1, dtype=difference_raster.dtype, 
                    width=difference_raster.shape[1], height=difference_raster.shape[0], 
                    crs=crs, transform=transform, nodata=-9999) as dst:

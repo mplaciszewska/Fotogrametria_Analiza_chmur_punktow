@@ -27,16 +27,16 @@ def calc_number_of_points_in_classes(las):
 
 las_file = input("Podaj ścieżkę do pliku .laz: ")
 
-# Wczytanie pliku LAS
 try:
     las = laspy.read(las_file)
 except Exception as e:
     print(f"Błąd przy wczytywaniu pliku: {e}")
     exit()
+
 points = read_las(las)
 
+# remove noise points
 allowed_classes = [0,1,2,3,4,5,6,9]
-
 where_not_noise = np.isin(las["classification"], allowed_classes)
 points = points[where_not_noise]
 classification = las["classification"][where_not_noise]
@@ -44,8 +44,6 @@ classification = las["classification"][where_not_noise]
 translate_vector = las.header.min
 points_translated = points - translate_vector
 xt, yt, zt= points_translated[:, 0], points_translated[:, 1], points_translated[:, 2]
-
-
 
 # classes dict
 classes_ASPRS = {
